@@ -1,0 +1,35 @@
+//image upload code start
+    $count = count($_FILES['teamImage']['name']);
+    $img=array();
+    for ($i=0; $i < $count; $i++)
+
+    {
+
+        $imageName = $_FILES['teamImage']['name'][$i];
+        $imageSize = $_FILES['teamImage']['size'][$i];
+        $imageTmp = $_FILES['teamImage']['tmp_name'][$i];
+        $ext = pathinfo($imageName, PATHINFO_EXTENSION);
+        $allwoed_extention = array('pdf', 'png', 'jpg','JPEG','PNG','GIF','jpeg','JPG','PDF','docx');
+        if(in_array($ext, $allwoed_extention)){
+            if ($imageSize < 10485760) {
+                $newfilename = $imageSize."_".$imageName;
+                move_uploaded_file($imageTmp, "assets/image/team/".$newfilename);
+                array_push($img, $newfilename);
+               $imageName = implode(",",$img);
+              
+
+            }else{
+
+                echo "File Size is Big";
+
+            }
+
+        }else{
+
+            echo "Extension Not Match";
+
+        }
+
+    }
+
+//image upload code end
